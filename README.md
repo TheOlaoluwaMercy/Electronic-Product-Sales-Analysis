@@ -37,6 +37,9 @@ Question 1: Rank Product categories based on the total profit generated
 FROM combo_data
 GROUP BY Category;
   ```
+![Question 1](https://github.com/user-attachments/assets/7cbdcd63-d136-4386-88e1-9924195e962d)
+
+
 Question 2: What is each product category’s share of overall profit?
 ```sql
 SELECT 
@@ -49,6 +52,9 @@ FROM combo_data
 GROUP BY Category) AS Product_summary
 ORDER BY (Total_Profit/SUM(Total_Profit) OVER()) DESC;
 ```
+![Question 2](https://github.com/user-attachments/assets/60d7cf47-f7d6-44f2-9d3f-fc73f4606cc7)
+
+
 Question 3: What is the running total of profit by quarter?
 ```sql
 SELECT 
@@ -60,6 +66,9 @@ SELECT
 FROM combo_data
 GROUP BY Quarter) AS Quarter_summary;
 ```
+![Question 3](https://github.com/user-attachments/assets/c1f75eb3-7ad5-49b8-a7bd-e43d19471e1d)
+
+
 Question 4: What is the cumulative percentage of profit over quarters?
 ```sql
 SELECT 
@@ -71,6 +80,9 @@ SELECT
 FROM combo_data
 GROUP BY Quarter) AS Quarter_summary;
 ```
+![Question 4](https://github.com/user-attachments/assets/fd91f48c-2329-47e5-b363-4e9fdecb0bdc)
+
+
 Question 5: What is the 3-month moving average of monthly profit?
 ```sql
 SELECT
@@ -84,6 +96,9 @@ FROM combo_data
 GROUP BY Month) AS Month_agg
 Order by Month;
 ```
+![Question 5](https://github.com/user-attachments/assets/33c540e5-df29-4cb1-b779-ace5a4ebb889)
+
+
 Question 6: How does monthly profit change compared to the previous month?
 ```sql
 SELECT 
@@ -99,6 +114,9 @@ FROM
 FROM combo_data
 GROUP BY Month) AS Month_agg;
 ```
+![Question 6](https://github.com/user-attachments/assets/9ef9b959-e5de-479b-a8dc-7fef924d5ccb)
+
+
 Question 7: Which product categories in 2020 performed above or below the average?
 ```sql
 SELECT 
@@ -114,6 +132,9 @@ FROM combo_data
 WHERE Year = 2020
 GROUP BY Category) AS Category_summary;
 ```
+![Question 7](https://github.com/user-attachments/assets/cf275c95-5182-4e5c-8122-7c77780612dc)
+
+
 Question 8: When did each customer place their first order?
 ```sql
 SELECT
@@ -122,6 +143,9 @@ SELECT
 FROM combo_data
 ORDER BY Customer;
 ```
+![Question 8](https://github.com/user-attachments/assets/76478280-0ef2-49ab-b700-a342f88a8cba)
+
+
 Question 9: When did each customer place their most recent order?
 ```sql
 SELECT
@@ -130,6 +154,9 @@ SELECT
 FROM combo_data
 ORDER BY Customer;
 ```
+![Question 9](https://github.com/user-attachments/assets/0142230d-f198-4aac-a36c-89ee2d9bfce0)
+
+
 Question 10: How long did each customer actively patronize (in days)?
 ```sql
 	SELECT
@@ -139,6 +166,9 @@ Question 10: How long did each customer actively patronize (in days)?
 	DATEDIFF(day, FIRST_VALUE(Order_Date) OVER(PARTITION BY Customer ORDER BY Order_Date ASC),LAST_VALUE(Order_Date) OVER(PARTITION BY Customer ORDER BY Order_Date ASC ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) ) + 1 as patronage_duration
 FROM combo_data;
 ```
+![Question 10](https://github.com/user-attachments/assets/7651499d-eebe-4ff9-9916-a51f6459c826)
+
+
 Question 11: What percentage of customers only ordered once (i.e., 1-day patronage)?
 ```sql
 WITH patronage_data AS (SELECT
@@ -154,6 +184,7 @@ SELECT COUNT(*) AS customer_that_patronized_for_1_day,
 FROM patronage_data
 WHERE patronage_duration = 1
 ```
+![Question 11](https://github.com/user-attachments/assets/366ee9c3-d6e4-43e2-b894-588e300f43b8)
 
 
 
