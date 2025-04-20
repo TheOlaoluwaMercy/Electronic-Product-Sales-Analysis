@@ -3,9 +3,10 @@ This project is a proof of my SQL window function skills.
 
 Through a series of business-driven queries, the analysis answers key questions around profitability trends, customer purchase behaviour, and category performance.
 
-Database diagram
+**Database diagram**
+![DB Diagram](https://github.com/user-attachments/assets/1f2c1df0-ec57-4d0a-bebb-eeb93508f433)
 
-Task 1:  Create a view that includes Order_Number, Line_Item, Order_Date, Quarter (YYYY-Q#), Month (YYYY-MM), Product_Name, Product_Category, Customer_Name, Store_Country, Quantity, and Profit (USD)—calculated as (Unit Price USD - Unit Cost USD) * Quantity — by joining relevant fields from the Sales, Customers, Products, and Stores tables.
+**Task 1:  Create a view that includes Order_Number, Line_Item, Order_Date, Quarter (YYYY-Q#), Month (YYYY-MM), Product_Name, Product_Category, Customer_Name, Store_Country, Quantity, and Profit (USD)—calculated as (Unit Price USD - Unit Cost USD) * Quantity — by joining relevant fields from the Sales, Customers, Products, and Stores tables.**
 
   ```sql
   CREATE VIEW combo_data AS 
@@ -26,8 +27,9 @@ LEFT JOIN Stores ON Sales.StoreKey = Stores.StoreKey
 LEFT JOIN Products ON Products.ProductKey = Sales.ProductKey; 
   ```
 
-Task 2: Query the view `combo_data` to answer the following business questions
-Question 1: Rank Product categories based on the total profit generated
+**Task 2: Query the view `combo_data` to answer the following business questions**
+
+**Question 1: Rank Product categories based on the total profit generated****
 
   ```sql
   SELECT 
@@ -40,7 +42,7 @@ GROUP BY Category;
 ![Question 1](https://github.com/user-attachments/assets/7cbdcd63-d136-4386-88e1-9924195e962d)
 
 
-Question 2: What is each product category’s share of overall profit?
+**Question 2: What is each product category’s share of overall profit?**
 ```sql
 SELECT 
 	Category,
@@ -55,7 +57,7 @@ ORDER BY (Total_Profit/SUM(Total_Profit) OVER()) DESC;
 ![Question 2](https://github.com/user-attachments/assets/60d7cf47-f7d6-44f2-9d3f-fc73f4606cc7)
 
 
-Question 3: What is the running total of profit by quarter?
+**Question 3: What is the running total of profit by quarter?**
 ```sql
 SELECT 
 	Quarter,
@@ -69,7 +71,7 @@ GROUP BY Quarter) AS Quarter_summary;
 ![Question 3](https://github.com/user-attachments/assets/c1f75eb3-7ad5-49b8-a7bd-e43d19471e1d)
 
 
-Question 4: What is the cumulative percentage of profit over quarters?
+**Question 4: What is the cumulative percentage of profit over quarters?**
 ```sql
 SELECT 
 	Quarter,
@@ -83,7 +85,7 @@ GROUP BY Quarter) AS Quarter_summary;
 ![Question 4](https://github.com/user-attachments/assets/fd91f48c-2329-47e5-b363-4e9fdecb0bdc)
 
 
-Question 5: What is the 3-month moving average of monthly profit?
+**Question 5: What is the 3-month moving average of monthly profit?**
 ```sql
 SELECT
 	Month, 
@@ -99,7 +101,7 @@ Order by Month;
 ![Question 5](https://github.com/user-attachments/assets/33c540e5-df29-4cb1-b779-ace5a4ebb889)
 
 
-Question 6: How does monthly profit change compared to the previous month?
+**Question 6: How does monthly profit change compared to the previous month?**
 ```sql
 SELECT 
 	Month,
@@ -117,7 +119,7 @@ GROUP BY Month) AS Month_agg;
 ![Question 6](https://github.com/user-attachments/assets/9ef9b959-e5de-479b-a8dc-7fef924d5ccb)
 
 
-Question 7: Which product categories in 2020 performed above or below the average?
+**Question 7: Which product categories in 2020 performed above or below the average?**
 ```sql
 SELECT 
 	Category,
@@ -135,7 +137,7 @@ GROUP BY Category) AS Category_summary;
 ![Question 7](https://github.com/user-attachments/assets/cf275c95-5182-4e5c-8122-7c77780612dc)
 
 
-Question 8: When did each customer place their first order?
+**Question 8: When did each customer place their first order?**
 ```sql
 SELECT
 	DISTINCT Customer,
@@ -146,7 +148,7 @@ ORDER BY Customer;
 ![Question 8](https://github.com/user-attachments/assets/76478280-0ef2-49ab-b700-a342f88a8cba)
 
 
-Question 9: When did each customer place their most recent order?
+**Question 9: When did each customer place their most recent order?**
 ```sql
 SELECT
 	DISTINCT Customer,
@@ -157,7 +159,7 @@ ORDER BY Customer;
 ![Question 9](https://github.com/user-attachments/assets/0142230d-f198-4aac-a36c-89ee2d9bfce0)
 
 
-Question 10: How long did each customer actively patronize (in days)?
+**Question 10: How long did each customer actively patronize (in days)?**
 ```sql
 	SELECT
 	DISTINCT Customer,
@@ -169,7 +171,7 @@ FROM combo_data;
 ![Question 10](https://github.com/user-attachments/assets/7651499d-eebe-4ff9-9916-a51f6459c826)
 
 
-Question 11: What percentage of customers only ordered once (i.e., 1-day patronage)?
+**Question 11: What percentage of customers only ordered once (i.e., 1-day patronage)?**
 ```sql
 WITH patronage_data AS (SELECT
 	DISTINCT Customer,
